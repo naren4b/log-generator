@@ -1,33 +1,20 @@
-# Use the official Golang image
-FROM golang:1.17-alpine AS build
+# Use an official Go runtime as a parent image
+FROM golang:1.17
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Go module files
-COPY go.mod .
-COPY go.sum .
+# Copy the Go application source code and go.mod/go.sum files into the container
+COPY go.mod ./
 
-# Download dependencies
+# Install dependencies
 RUN go mod download
 
-# Copy the rest of the source code
+# Copy the rest of the application source code into the container
 COPY . .
 
 # Build the Go application
-RUN go build -o loggenerator .
+RUN go build -o logger .
 
-# Use a minimal Alpine image to create the final runtime image
-FROM alpine:latest
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the built executable from the previous stage
-COPY --from=build /app/loggenerator .
-
-# Run the Go application
-CMD ["./loggenerator"]
-
-# Optionally, specify a default duration (5 minutes)
-# CMD ["./loggenerator", "5"]
+# Command to run the Go application
+CMD ["./logger"]

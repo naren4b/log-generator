@@ -1,3 +1,3 @@
-module my-log-generator (replace github.com/pkg/errors => github.com/pkg/errors v0.0.0-20181203173644-4fa423e6fadd)
+module github.com/naren4b/logger
 
-go 1.19
+go 1.18

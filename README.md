@@ -8,7 +8,7 @@ docker push $IMAGE_PATH
 docker run -d --rm --name=log-generator -e LOG_INTERVAL=2 $IMAGE_PATH
 
 ```
-pod 
+pod yaml
 ```
 cat<<EOF >pod.yaml 
 apiVersion: v1
@@ -25,3 +25,4 @@ spec:
 EOF
 ```
 
+k apply -f pod.yaml 
