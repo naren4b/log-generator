@@ -56,10 +56,22 @@ function generateRandomLog() {
   logger.log('audit', logMessage);
 }
 
-// Get the log generation interval from the environment variable or default to 1000 ms
-const interval = process.env.LOG_INTERVAL || 1000;
+// Get the duration for log generation in milliseconds from environment variable or default to 5 minutes
+const logDuration = process.env.LOG_DURATION || (5 * 60 * 1000); // 5 minutes in milliseconds
 
-// Generate a random log at the specified interval
-setInterval(generateRandomLog, interval);
+// Calculate end time for log generation
+const endTime = Date.now() + logDuration;
 
-console.log(`Audit log generator started. It will generate a random log every ${interval} milliseconds.`);
+// Generate logs until endTime is reached
+function generateLogsUntilEnd() {
+  if (Date.now() < endTime) {
+    generateRandomLog();
+    setTimeout(generateLogsUntilEnd, Math.random() * 2000); // Random delay up to 2 seconds
+  } else {
+    console.log('Log generation completed.');
+    process.exit(0);
+  }
+}
+
+// Start generating logs
+generateLogsUntilEnd();

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: log-generator
+spec:
+  containers:
+    - name: log-generator
+      image: your-dockerhub-username/log-generator:latest
+      env:
+        - name: LOG_INTERVAL
+          value: "1000"  # Default interval of 1000 milliseconds (1 second)
+      ports:
+        - containerPort: 80  # If you have an exposed port in your app
