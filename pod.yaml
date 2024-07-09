@@ -1,3 +1,4 @@
+cat<<EOF >pod.yaml 
 apiVersion: v1
 kind: Pod
 metadata:
@@ -7,7 +8,6 @@ spec:
     - name: log-generator
       image: your-dockerhub-username/log-generator:latest
       env:
-        - name: LOG_INTERVAL
-          value: "1000"  # Default interval of 1000 milliseconds (1 second)
-      ports:
-        - containerPort: 80  # If you have an exposed port in your app
+        - name: LOG_DURATION
+          value: "300000"  # 5 minutes in milliseconds
+EOF
