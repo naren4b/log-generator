@@ -26,3 +26,5 @@ EOF
 ```
 
 k apply -f pod.yaml 
+k get pod log-generator
+k logs -f log-generator
